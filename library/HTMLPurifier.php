@@ -110,11 +110,14 @@ class HTMLPurifier
      *                per-use basis).
      *                The parameter can also be any type that
      *                HTMLPurifier_Config::create() supports.
+     * @param array $strategies Optional. Array of strategy names.
+     *                Possible values: RemoveForeignElements, MakeWellFormed, FixNesting, ValidateAttributes
+     *                Only the strategies that are in the array are activated.
      */
-    public function __construct($config = null)
+    public function __construct($config = null, $strategies = array("RemoveForeignElements", "MakeWellFormed", "FixNesting", "ValidateAttributes"))
     {
         $this->config = HTMLPurifier_Config::create($config);
-        $this->strategy = new HTMLPurifier_Strategy_Core();
+        $this->strategy = new HTMLPurifier_Strategy_Core($strategies);
     }
 
     /**

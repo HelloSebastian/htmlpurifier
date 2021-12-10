@@ -5,12 +5,23 @@
  */
 class HTMLPurifier_Strategy_Core extends HTMLPurifier_Strategy_Composite
 {
-    public function __construct()
+    public function __construct($enabledStrategies = array())
     {
-        $this->strategies[] = new HTMLPurifier_Strategy_RemoveForeignElements();
-        $this->strategies[] = new HTMLPurifier_Strategy_MakeWellFormed();
-        $this->strategies[] = new HTMLPurifier_Strategy_FixNesting();
-        $this->strategies[] = new HTMLPurifier_Strategy_ValidateAttributes();
+        if (in_array("RemoveForeignElements", $enabledStrategies)) {
+            $this->strategies[] = new HTMLPurifier_Strategy_RemoveForeignElements();
+        }
+
+        if (in_array("MakeWellFormed", $enabledStrategies)) {
+            $this->strategies[] = new HTMLPurifier_Strategy_MakeWellFormed();
+        }
+
+        if (in_array("FixNesting", $enabledStrategies)) {
+            $this->strategies[] = new HTMLPurifier_Strategy_FixNesting();
+        }
+
+        if (in_array("ValidateAttributes", $enabledStrategies)) {
+            $this->strategies[] = new HTMLPurifier_Strategy_ValidateAttributes();
+        }
     }
 }
 
